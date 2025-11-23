@@ -12,15 +12,13 @@ class AuthController extends Controller
     }
     public function login(Request $req)
     {
-        $validated = $req->validate([
-            'email' => 'required|email',
-            'password' => 'required|min:8',
-        ]);
+        $email = $req->input('email');
+        $password = $req->input('password');
 
         $validEmail = 'test@gmail.com';
         $validPassword = '123456789';
 
-        if ($validated['email'] !== $validEmail || $validated['password'] !== $validPassword) {
+        if ($email !== $validEmail || $password !== $validPassword) {
             return back()->withErrors(['Error' => 'Wrong Email/password, please try again.'])->withInput();
         }
 
