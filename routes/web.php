@@ -7,7 +7,6 @@ Route::get('/', function () {
     return redirect()->route('showLogin');
 });
 
-// Route Syntax: Route::method(get,post,put,patch,delete, [ControllerName::class, 'Method inside the controller'])->name('routeName');
 
 Route::get('/login', [AuthController::class, 'showLogin'])->name('showLogin');
 
