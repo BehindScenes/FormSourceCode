@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\LoginFormRequest;
+use App\Http\Requests\RegisterFormReq;
+use App\Models\ClientsModel;
+use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
@@ -23,5 +26,17 @@ class AuthController extends Controller
         }
 
         return back()->with('success', 'logged in successfully');
+    }
+
+    public function showRegister() {
+        return view('register');
+    }
+    public function register (RegisterFormReq $req){
+        $validated = $req->validated();
+        $client = ClientsModel::create([
+            'email' => $validated['email'],
+            'password' => Hash::make($validated['password']),
+        ]);  
+        return redirect()->route('showLogin')->with('success', 'created success');      
     }
 }
